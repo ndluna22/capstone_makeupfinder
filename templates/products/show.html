@@ -1,0 +1,20 @@
+{%extends 'base.html'%} {%block content%}
+
+<div class="cards">
+  {% for product_row in products | batch(1)%}
+  <div class="card">
+    {%for product in product_row%}{%if product%}
+
+    <img
+      src="{{product['api_featured_image']
+    }}"
+      class="product_indivdual"
+    />
+    <form action="/products/{{product.id}}" class="product_idBtn">
+      <button class="btn btn-primary">{{product.name}}</button>
+    </form>
+    {%endif%}{%endfor%}
+  </div>
+  {%endfor%}
+</div>
+{%endblock%}

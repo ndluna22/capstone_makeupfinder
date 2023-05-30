@@ -1,0 +1,35 @@
+{% extends 'products/index.html' %} {% block content %} &nbsp;
+<div class="col-sm-6">
+  <li class="list-group" id="messages">
+    {% for review in reviews %}
+
+    <div class="message-area">
+      <a href="/users/{{ user.id }}">@{{ user.username }}</a>
+
+      {% if g.user %} {% if g.user.id == review.user.id %}
+      <form
+        method="POST"
+        class="deleteBtn"
+        action="/products/{{review.product_id}}/reviews/{{ review.id }}/delete"
+      >
+        <button class="btn btn-danger">Delete</button>
+      </form>
+      {% endif %} {% endif %}
+
+      <span class="text-muted"
+        >{{ review.timestamp.strftime('%d %B %Y') }}</span
+      >
+
+      <form action="/products/{{review.product_id}}" class="product_idBtn">
+        <button class="btn btn-primary">
+          Product ID: {{review.product_id}}
+        </button>
+      </form>
+
+      <p>Review: {{ review.text }}</p>
+    </div>
+
+    {% endfor %}
+  </li>
+</div>
+{% endblock %}

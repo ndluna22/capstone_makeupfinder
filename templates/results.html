@@ -1,0 +1,14 @@
+{%extends 'base.html'%} {%block content%}
+<div class="allproductsbox">
+  <div>
+    {%for product in products%}
+    <a href="/products/{{product.id}}" class="form-inline">
+      <img class="product_image" src="{{ product.image_link }}" />
+      <br />
+      <p>Name {{product.name}}</p>
+      <p>Brand: {{product.brand}}</p>
+    </a>
+    {%endfor%}
+  </div>
+</div>
+{%endblock%}

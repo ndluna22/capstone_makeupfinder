@@ -1,0 +1,45 @@
+{% extends 'base.html' %} {% block content %}
+
+<div>
+  <h1 class="HomeText">Welcome to MakeupFinder!</h1>
+</div>
+
+<div>
+  <form method="POST" id="search_form">
+    {{ form.hidden_tag() }} {% for field in form if field.widget.input_type !=
+    'hidden' %} {% for error in field.errors %}
+    <span class="text-danger">{{ error }}</span>
+    {% endfor %} {{ field(placeholder=field.label.text, class="form-control") }}
+    {% endfor %}
+    <script>
+      $(function () {
+        $.ajax({
+          url: '{{ url_for("autocomplete") }}',
+        }).done(function (data) {
+          $("#words_autocomplete").autocomplete({
+            source: data,
+            minLength: 1,
+          });
+        });
+      });
+    </script>
+  </form>
+</div>
+
+<div class="homecontainer">
+  <form action="/products">
+    <button class="btn btn-primary">All Products</button>
+  </form>
+  &nbsp;
+  <form action="/brands">
+    <button class="btn btn-primary">By Brand</button>
+  </form>
+  &nbsp;
+  <form action="/categories">
+    <button class="btn btn-primary">By Category</button>
+  </form>
+</div>
+
+<br />
+
+{% endblock %}

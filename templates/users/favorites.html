@@ -1,0 +1,17 @@
+{% extends 'products/index.html' %} {% block content %} &nbsp;
+<div class="col-sm-6">
+  <li class="list-group" id="messages">
+    {% for favorite in favorites %}
+    <div class="message-area">
+      <a href="/users/{{ user.id }}">@{{ user.username }}</a>
+
+      <form action="/products/{{favorite.product_id}}" class="productBtn">
+        <button class="btn btn-primary">
+          Product ID: {{favorite.product_id}}
+        </button>
+      </form>
+    </div>
+    {%endfor%}
+  </li>
+</div>
+{%endblock%}

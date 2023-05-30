@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Makeup</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/bootstrap/dist/css/bootstrap.css"
+    />
+    <script src="https://unpkg.com/jquery"></script>
+    <script src="https://unpkg.com/popper"></script>
+    <script src="https://unpkg.com/bootstrap"></script>
+    <script src="https://unpkg.com/axios/dist/axios.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+    
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+    />
+    <link rel="stylesheet" href="/static/makeup.css" />
+  </head>
+
+  <body class="{% block body_class %}{% endblock %}">
+    <ul>
+    <nav class= "navbar navbar-expand">
+        <ul>
+        <div class="navbar">
+          <li><a href="/" class="homenav" >
+            <span>Home</span></a></li>
+            {% if not g.user %}
+            <li><a href="/login" class="navbar-brand">
+              <span>Login</span>
+            </a></li>
+            <li><a href="/signup" class="navbar-brand">
+              <span>Sign-up</span>
+            </a></li>
+            {% else %}
+    
+            <li><a href="/users/{{ g.user.id }}">
+                  <img id ="profile-avatar" src="{{ g.user.image_url }}" alt="{{ g.user.username }}">
+                </a></li>
+                <li><a href="/users/{{g.user.id}}/favorites">My Favorites</a></li>
+                <li><a href="/logout" class="navbar-brand"><span>Sign out</span></a></li>
+              
+                {% endif %}
+               
+        </div>
+      </div>
+    </nav>
+</ul>
+    <div class="flashcontainer">
+      {% for category, message in get_flashed_messages(with_categories=True) %}
+      <div class="{{ category }}" id="flashmsg">{{ message }}</div>
+      {% endfor %} {% block content %} {% endblock %}
+    </div>
+  </body>
+</html>

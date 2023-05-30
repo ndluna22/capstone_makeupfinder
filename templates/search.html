@@ -1,0 +1,35 @@
+{% extends 'base.html' %} {% block content %} {{ form.name.label }}: {{
+form.name }}
+
+<div class="row justify-content-md-center">
+  <div class="col-md-7 col-lg-5">
+    <h2 class="join-message">Start Search!</h2>
+    <form method="POST" id="search_form">
+      {{ form.hidden_tag() }} {% for field in form if field.widget.input_type !=
+      'hidden' %} {% for error in field.errors %}
+      <span class="text-danger">{{ error }}</span>
+      {% endfor %} {{ field(placeholder=field.label.text, class="form-control")
+      }} {% endfor %}
+
+      <button class="btn btn-primary btn-lg btn-block">Search!</button>
+    </form>
+    {% endblock %}
+  </div>
+</div>
+
+{{ form.name.label }}: {{ form.name }}
+
+<form method="POST" id="search_form">
+  <script>
+    $(function () {
+      $.ajax({
+        url: '{{ url_for("autocomplete") }}',
+      }).done(function (data) {
+        $("#words_autocomplete").autocomplete({
+          source: data,
+          minLength: 2,
+        });
+      });
+    });
+  </script>
+</form>

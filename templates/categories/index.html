@@ -1,0 +1,22 @@
+{%extends 'base.html'%} {%block content%}
+
+<h1>{{name}} Products</h1>
+
+<div class="cards">
+  {% for category_row in category_data | batch(3)%}
+  <div class="card">
+    {%for cat in category_row%}{%if cat%}
+
+    <img
+      src="{{cat['api_featured_image']
+    }}"
+      class="product_indivdual"
+    />
+    <form action="/products/{{cat['id']}}" class="product_idBtn">
+      <button class="btn btn-primary">{{cat['name']}}</button>
+    </form>
+    {%endif%}{%endfor%}
+  </div>
+  {%endfor%}
+</div>
+{%endblock%}
